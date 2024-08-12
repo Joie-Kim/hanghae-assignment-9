@@ -5,11 +5,9 @@ async function loadProducts() {
 }
 
 function displayProducts(products) {
-
     // Find the container where products will be displayed
     const container = document.querySelector('#all-products .container');
 
-   
     // Iterate over each product and create the HTML structure safely
     products.forEach(product => {
         // Create the main product div
@@ -60,17 +58,23 @@ function displayProducts(products) {
         // Append the new product element to the container
         container.appendChild(productElement);
     });
-
-    
-
 }
 
+window.onload = () => {
+    let status = 'idle';
+
+    let productSection = document.querySelector('#all-products');
 
 
-loadProducts();
+    window.onscroll = () => {
+        let position = productSection.getBoundingClientRect().top - (window.scrollY + window.innerHeight);
 
-// Simulate heavy operation. It could be a complex price calculation.
-for (let i = 0; i < 10000000; i++) {
-    const temp = Math.sqrt(i) * Math.sqrt(i);
+        if (status == 'idle' && position <= 0) {
+            loadProducts();
+
+            for (let i = 0; i < 10000000; i++) {
+                const temp = Math.sqrt(i) * Math.sqrt(i);
+            }
+        }
+    }
 }
-
